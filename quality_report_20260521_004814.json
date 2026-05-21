@@ -1,0 +1,31 @@
+{
+  "timestamp": "2026-05-21T00:48:14.748510",
+  "score_percent": 87.5,
+  "tests_passed": 7,
+  "tests_total": 9,
+  "details": {
+    "completeness_title": true,
+    "completeness_url": true,
+    "completeness_date": true,
+    "validity_title_length": true,
+    "validity_url_format": false,
+    "validity_salary": true,
+    "consistency_no_duplicates": true,
+    "consistency_language": true
+  },
+  "errors": [
+    "⚠️ 70 URLs invalides"
+  ],
+  "invalid_urls_sample": [
+    "/offre-emploi-charge-adp-et-paie-hf-recrutement-groupe-vilavi-tanger-179194.html",
+    "/offre-emploi-operations-manager-french-english-speaker-recrutement-telus-digital-casablanca-182501.html",
+    "/offre-emploi-charge-technique-actifs---skhirat-recrutement-groupe-labelvie---carrefour-skhirat-182500.html",
+    "/offre-emploi-quality-manager-call-centerbpo-recrutement-telus-digital-casablanca-182499.html",
+    "/offre-emploi-collaborateur-collaboratrice-comptable-confirmee-recrutement-soreco-rabat-182498.html",
+    "/offre-emploi-responsable-administratif-et-financier-recrutement-confidentiel-meknes-182497.html",
+    "/offre-emploi-directeur-administratif-et-financier-recrutement-confidentiel-meknes-182496.html",
+    "/offre-emploi-charge-de-tresorerie-senior-recrutement-axa-services-maroc-sala-al-jadida-182495.html",
+    "/offre-emploi-responsable-de-depot-hf-recrutement-confidentiel-bouznika-182494.html",
+    "/offre-emploi-agent-de-tresorerie-hf-recrutement-pwc-casablanca-182493.html"
+  ]
+}

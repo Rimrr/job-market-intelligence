@@ -1,0 +1,11 @@
+requests
+beautifulsoup4
+scrapy
+kafka-python
+minio
+pandas
+langdetect
+great_expectations
+apache-airflow
+sqlalchemy
+psycopg2-binary

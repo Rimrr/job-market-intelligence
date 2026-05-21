@@ -1,0 +1,168 @@
+{
+  "catalogue": {
+    "fact_job_offers": {
+      "description": "Table de faits centrale — toutes les offres d'emploi collectees",
+      "layer": "Gold / Data Warehouse",
+      "source": "rekrute.ma, linkedin, indeed, wuzzuf.net",
+      "owner": "Data Engineer — Rim",
+      "steward": "Rim",
+      "columns": {
+        "id": {
+          "type": "SERIAL",
+          "nullable": false,
+          "description": "Identifiant unique"
+        },
+        "title": {
+          "type": "TEXT",
+          "nullable": false,
+          "description": "Intitule du poste"
+        },
+        "company": {
+          "type": "TEXT",
+          "nullable": true,
+          "description": "Nom de l entreprise"
+        },
+        "location": {
+          "type": "TEXT",
+          "nullable": true,
+          "description": "Ville ou region"
+        },
+        "salary_min": {
+          "type": "INTEGER",
+          "nullable": true,
+          "description": "Salaire minimum en MAD"
+        },
+        "salary_max": {
+          "type": "INTEGER",
+          "nullable": true,
+          "description": "Salaire maximum en MAD"
+        },
+        "language": {
+          "type": "VARCHAR",
+          "nullable": true,
+          "description": "Langue detectee (fr/en/ar)"
+        },
+        "source": {
+          "type": "TEXT",
+          "nullable": false,
+          "description": "Site source de l offre"
+        },
+        "url": {
+          "type": "TEXT",
+          "nullable": false,
+          "description": "Lien unique vers l offre"
+        },
+        "published_at": {
+          "type": "TIMESTAMP",
+          "nullable": true,
+          "description": "Date de publication"
+        },
+        "scraped_at": {
+          "type": "TIMESTAMP",
+          "nullable": true,
+          "description": "Date de collecte"
+        }
+      },
+      "quality_score": 100,
+      "last_updated": "2026-05-21T08:39:35.561455",
+      "row_count": 0,
+      "tags": [
+        "emploi",
+        "maroc",
+        "big-data",
+        "scraping"
+      ],
+      "conformite": "Donnees publiques — pas de PII — conforme Loi 09-08"
+    },
+    "dim_skills": {
+      "description": "Dimension referentiel des competences techniques",
+      "layer": "Gold / Data Warehouse",
+      "owner": "Data Engineer — Rim",
+      "columns": {
+        "id": {
+          "type": "SERIAL",
+          "nullable": false,
+          "description": "Identifiant unique"
+        },
+        "name": {
+          "type": "TEXT",
+          "nullable": false,
+          "description": "Nom de la competence (python, sql...)"
+        }
+      },
+      "quality_score": 100,
+      "last_updated": "2026-05-21T08:39:35.561455"
+    },
+    "bronze_rekrute": {
+      "description": "Donnees brutes JSON scrappees depuis Rekrute.ma",
+      "layer": "Bronze / Data Lake MinIO",
+      "format": "JSON",
+      "path": "minio://bronze/rekrute/YYYY/MM/DD/HH/offers.json",
+      "owner": "Data Engineer — Rim",
+      "quality_score": null,
+      "note": "Aucune transformation — donnees brutes conservees",
+      "last_updated": "2026-05-21T08:39:35.561455"
+    }
+  },
+  "glossaire": {
+    "offre_emploi": {
+      "definition": "Annonce publiee par une entreprise pour recruter un profil specifique",
+      "synonymes": [
+        "job offer",
+        "offre de poste",
+        "annonce RH"
+      ],
+      "tables_liees": [
+        "fact_job_offers"
+      ]
+    },
+    "competence": {
+      "definition": "Technologie ou savoir-faire technique mentionne dans une offre d emploi",
+      "exemples": [
+        "python",
+        "sql",
+        "docker",
+        "machine learning"
+      ],
+      "tables_liees": [
+        "dim_skills",
+        "offer_skills"
+      ],
+      "regle_metier": "Extraite depuis titre + description via liste SKILLS_LIST"
+    },
+    "salary_min": {
+      "definition": "Salaire minimum extrait de la fourchette salariale en MAD (Dirham marocain)",
+      "contrainte": "Doit etre > 0 si renseigne",
+      "tables_liees": [
+        "fact_job_offers"
+      ]
+    },
+    "source": {
+      "definition": "Site web d origine de l offre d emploi",
+      "valeurs_valides": [
+        "rekrute",
+        "linkedin",
+        "indeed",
+        "wuzzuf"
+      ],
+      "tables_liees": [
+        "fact_job_offers"
+      ]
+    },
+    "language": {
+      "definition": "Langue detectee automatiquement dans la description de l offre",
+      "valeurs_valides": [
+        "fr",
+        "en",
+        "ar",
+        "es",
+        "de",
+        "unknown"
+      ],
+      "outil": "langdetect Python library",
+      "tables_liees": [
+        "fact_job_offers"
+      ]
+    }
+  }
+}

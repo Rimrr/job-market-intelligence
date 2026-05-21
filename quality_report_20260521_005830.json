@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-05-21T00:58:30.145893",
+  "score_percent": 92.31,
+  "tests_passed": 12,
+  "tests_total": 13,
+  "details": {
+    "completeness_title": true,
+    "completeness_url": true,
+    "completeness_date": true,
+    "validity_title_length": true,
+    "validity_url_format": true,
+    "validity_salary": true,
+    "consistency_no_duplicates": true,
+    "consistency_language": true,
+    "unicite_url": true,
+    "unicite_titre_entreprise": false,
+    "format_source": true,
+    "format_language": true,
+    "integrite_titre": true
+  },
+  "errors": [
+    "⚠️ 1 doublons titre+entreprise"
+  ],
+  "invalid_urls_sample": []
+}

@@ -1,0 +1,121 @@
+{
+  "nodes": [
+    {
+      "id": "rekrute.ma",
+      "type": "source",
+      "label": "Rekrute.ma (Web)"
+    },
+    {
+      "id": "linkedin",
+      "type": "source",
+      "label": "LinkedIn (JSearch API)"
+    },
+    {
+      "id": "indeed",
+      "type": "source",
+      "label": "Indeed (JSearch API)"
+    },
+    {
+      "id": "wuzzuf",
+      "type": "source",
+      "label": "Wuzzuf.net (Web)"
+    },
+    {
+      "id": "kafka",
+      "type": "pipeline",
+      "label": "Kafka Topic: job-offers"
+    },
+    {
+      "id": "bronze",
+      "type": "storage",
+      "label": "MinIO Bronze (JSON brut)"
+    },
+    {
+      "id": "silver",
+      "type": "transform",
+      "label": "Silver (Python + Pandas)"
+    },
+    {
+      "id": "gold",
+      "type": "transform",
+      "label": "Gold (Agregations SQL)"
+    },
+    {
+      "id": "warehouse",
+      "type": "storage",
+      "label": "PostgreSQL Data Warehouse"
+    },
+    {
+      "id": "metabase",
+      "type": "consumer",
+      "label": "Metabase Dashboard"
+    },
+    {
+      "id": "quality_checks",
+      "type": "control",
+      "label": "Quality Checks (9/9 tests)"
+    }
+  ],
+  "edges": [
+    {
+      "from": "rekrute.ma",
+      "to": "bronze",
+      "via": "batch_loader.py",
+      "mode": "batch"
+    },
+    {
+      "from": "linkedin",
+      "to": "bronze",
+      "via": "batch_loader.py",
+      "mode": "batch"
+    },
+    {
+      "from": "indeed",
+      "to": "bronze",
+      "via": "batch_loader.py",
+      "mode": "batch"
+    },
+    {
+      "from": "wuzzuf",
+      "to": "bronze",
+      "via": "batch_loader.py",
+      "mode": "batch"
+    },
+    {
+      "from": "rekrute.ma",
+      "to": "kafka",
+      "via": "kafka_producer.py",
+      "mode": "streaming"
+    },
+    {
+      "from": "bronze",
+      "to": "silver",
+      "via": "silver.py",
+      "transform": "nettoyage, normalisation, detection langue, extraction skills"
+    },
+    {
+      "from": "silver",
+      "to": "gold",
+      "via": "gold.py",
+      "transform": "agregation, GROUP BY, COUNT"
+    },
+    {
+      "from": "gold",
+      "to": "warehouse",
+      "via": "loader.py",
+      "mode": "insert"
+    },
+    {
+      "from": "warehouse",
+      "to": "metabase",
+      "via": "SQL natif",
+      "mode": "read"
+    },
+    {
+      "from": "silver",
+      "to": "quality_checks",
+      "via": "expectations.py",
+      "mode": "validation"
+    }
+  ]
+}

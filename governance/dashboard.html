@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Gouvernance — Job Market Intelligence</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Arial, sans-serif; background: #F8FAFC; color: #1a1a2e; }
+  header { background: #0D1B2A; color: white; padding: 24px 40px; }
+  header h1 { font-size: 28px; }
+  header p  { color: #90CAF9; font-size: 14px; margin-top: 4px; }
+  .tabs { display: flex; background: #1565C0; }
+  .tab { padding: 14px 28px; color: #90CAF9; cursor: pointer; font-size: 14px; font-weight: bold; border-right: 1px solid #1976D2; }
+  .tab.active { background: #F8FAFC; color: #1565C0; }
+  .tab:hover { background: #1976D2; color: white; }
+  .section { display: none; padding: 28px 40px; }
+  .section.active { display: block; }
+  .card { background: white; border-radius: 8px; padding: 20px; margin-bottom: 16px;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-left: 4px solid #1565C0; }
+  .card.teal   { border-left-color: #00897B; }
+  .card.green  { border-left-color: #2E7D32; }
+  .card.purple { border-left-color: #6A1B9A; }
+  .card.amber  { border-left-color: #F57F17; }
+  .card-title { font-size: 16px; font-weight: bold; color: #1565C0; margin-bottom: 8px; }
+  .card.teal   .card-title { color: #00897B; }
+  .card.green  .card-title { color: #2E7D32; }
+  .card.purple .card-title { color: #6A1B9A; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 12px;
+           font-size: 11px; font-weight: bold; margin: 2px; }
+  .badge-blue   { background: #E3F2FD; color: #1565C0; }
+  .badge-green  { background: #E8F5E9; color: #2E7D32; }
+  .badge-teal   { background: #E0F2F1; color: #00897B; }
+  .badge-purple { background: #F3E5F5; color: #6A1B9A; }
+  .badge-amber  { background: #FFF8E1; color: #F57F17; }
+  .score { font-size: 48px; font-weight: bold; color: #2E7D32; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+  .kpi { background: white; border-radius: 8px; padding: 20px; text-align: center;
+         box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  .kpi-num   { font-size: 36px; font-weight: bold; }
+  .kpi-label { font-size: 12px; color: #546E7A; margin-top: 4px; }
+  table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px;
+          overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  th { background: #1565C0; color: white; padding: 12px 16px; text-align: left; font-size: 13px; }
+  td { padding: 10px 16px; border-bottom: 1px solid #ECEFF1; font-size: 13px; }
+  tr:hover td { background: #F8FAFC; }
+  .ok { color: #2E7D32; font-weight: bold; }
+  .flow { background: #0D1B2A; color: #00BCD4; font-family: monospace;
+          padding: 20px 28px; border-radius: 8px; font-size: 13px; line-height: 2.0; }
+  .flow span.src  { color: #90CAF9; }
+  .flow span.arr  { color: #F57F17; }
+  .flow span.node { color: #A5D6A7; }
+  h2 { font-size: 20px; color: #1a1a2e; margin-bottom: 16px; font-weight: bold; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .col-title { font-size: 13px; font-weight: bold; color: #546E7A; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🏛️ Gouvernance des Données — Job Market Intelligence</h1>
+  <p>Cadre DAMA-DMBOK · Ecole Marocaine des Sciences de l'Ingénieur (EMSI) · 2025–2026</p>
+</header>
+
+<div class="tabs">
+  <div class="tab active" onclick="show('catalogue')">📋 Catalogue</div>
+  <div class="tab" onclick="show('glossaire')">📖 Glossaire</div>
+  <div class="tab" onclick="show('lineage')">🔗 Lineage</div>
+  <div class="tab" onclick="show('raci')">📊 RACI</div>
+  <div class="tab" onclick="show('qualite')">✅ Qualité</div>
+</div>
+
+<!-- ── CATALOGUE ─────────────────────────────────────────── -->
+<div id="catalogue" class="section active">
+  <h2>Catalogue de Données</h2>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-num" style="color:#1565C0">3</div><div class="kpi-label">Tables documentées</div></div>
+    <div class="kpi"><div class="kpi-num" style="color:#2E7D32">100</div><div class="kpi-label">Score qualité /100</div></div>
+    <div class="kpi"><div class="kpi-num" style="color:#00897B">10</div><div class="kpi-label">Champs indexés</div></div>
+    <div class="kpi"><div class="kpi-num" style="color:#6A1B9A">4</div><div class="kpi-label">Sources actives</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📦 fact_job_offers — Table de faits centrale</div>
+    <p style="color:#546E7A;font-size:13px;margin-bottom:10px">Table centrale du Data Warehouse — toutes les offres collectées depuis les 4 sources</p>
+    <div style="margin-bottom:8px">
+      <span class="badge badge-blue">Couche : Gold / DW</span>
+      <span class="badge badge-green">Owner : Rim</span>
+      <span class="badge badge-green">Score : 100/100</span>
+      <span class="badge badge-teal">63 lignes</span>
+    </div>
+    <table>
+      <tr><th>Champ</th><th>Type</th><th>Obligatoire</th><th>Description</th></tr>
+      <tr><td>id</td><td>SERIAL</td><td class="ok">✓</td><td>Identifiant unique auto-incrémenté</td></tr>
+      <tr><td>title</td><td>TEXT</td><td class="ok">✓</td><td>Intitulé du poste</td></tr>
+      <tr><td>company</td><td>TEXT</td><td>—</td><td>Nom de l'entreprise</td></tr>
+      <tr><td>location</td><td>TEXT</td><td>—</td><td>Ville ou région</td></tr>
+      <tr><td>salary_min</td><td>INTEGER</td><td>—</td><td>Salaire minimum en MAD</td></tr>
+      <tr><td>salary_max</td><td>INTEGER</td><td>—</td><td>Salaire maximum en MAD</td></tr>
+      <tr><td>language</td><td>VARCHAR</td><td>—</td><td>Langue détectée (fr/en/ar)</td></tr>
+      <tr><td>source</td><td>TEXT</td><td class="ok">✓</td><td>Site source (rekrute/linkedin/indeed/wuzzuf)</td></tr>
+      <tr><td>url</td><td>TEXT UNIQUE</td><td class="ok">✓</td><td>Lien unique — clé de déduplication</td></tr>
+      <tr><td>published_at</td><td>TIMESTAMP</td><td>—</td><td>Date de publication de l'offre</td></tr>
+    </table>
+  </div>
+
+  <div class="two-col">
+    <div class="card teal">
+      <div class="card-title">🏷️ dim_skills — Référentiel compétences</div>
+      <p style="color:#546E7A;font-size:13px;margin-bottom:8px">Dimension contenant toutes les compétences techniques indexées</p>
+      <span class="badge badge-teal">Couche : Gold</span>
+      <span class="badge badge-green">Owner : Rim</span>
+      <span class="badge badge-green">Score : 100/100</span>
+      <span class="badge badge-teal">13 lignes</span>
+      <p style="margin-top:10px;font-size:13px">Compétences : python · sql · spark · kafka · docker · aws · react · machine learning · tableau · devops · nlp · business intelligence · data engineer</p>
+    </div>
+    <div class="card amber">
+      <div class="card-title">🗄️ bronze_rekrute — Data Lake Bronze</div>
+      <p style="color:#546E7A;font-size:13px;margin-bottom:8px">Données brutes JSON stockées dans MinIO sans transformation</p>
+      <span class="badge badge-amber">Couche : Bronze</span>
+      <span class="badge badge-green">Owner : Rim</span>
+      <span class="badge badge-amber">Format : JSON</span>
+      <p style="margin-top:10px;font-size:13px;font-family:monospace">Path: minio://bronze/rekrute/YYYY/MM/DD/HH/offers.json</p>
+      <p style="margin-top:6px;font-size:12px;color:#546E7A">Aucune transformation — historique complet préservé</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── GLOSSAIRE ─────────────────────────────────────────── -->
+<div id="glossaire" class="section">
+  <h2>Glossaire Métier</h2>
+  <p style="color:#546E7A;font-size:13px;margin-bottom:20px">Dictionnaire sémantique partagé — définitions officielles des termes utilisés dans le pipeline</p>
+  <table>
+    <tr><th>Terme</th><th>Définition</th><th>Valeurs valides</th><th>Tables liées</th></tr>
+    <tr>
+      <td><strong>offre_emploi</strong></td>
+      <td>Annonce publiée par une entreprise pour recruter un profil spécifique</td>
+      <td>—</td>
+      <td><span class="badge badge-blue">fact_job_offers</span></td>
+    </tr>
+    <tr>
+      <td><strong>competence</strong></td>
+      <td>Technologie ou savoir-faire technique mentionné dans une offre — extraite via SKILLS_LIST</td>
+      <td>python, sql, spark, kafka, docker, aws...</td>
+      <td><span class="badge badge-teal">dim_skills</span> <span class="badge badge-teal">offer_skills</span></td>
+    </tr>
+    <tr>
+      <td><strong>salary_min</strong></td>
+      <td>Salaire minimum extrait de la fourchette salariale en MAD (Dirham marocain)</td>
+      <td>> 0 si renseigné</td>
+      <td><span class="badge badge-blue">fact_job_offers</span></td>
+    </tr>
+    <tr>
+      <td><strong>source</strong></td>
+      <td>Site web d'origine de l'offre d'emploi — identifiant unique du scraper utilisé</td>
+      <td><span class="badge badge-green">rekrute</span> <span class="badge badge-blue">linkedin</span> <span class="badge badge-amber">indeed</span> <span class="badge badge-teal">wuzzuf</span></td>
+      <td><span class="badge badge-blue">fact_job_offers</span></td>
+    </tr>
+    <tr>
+      <td><strong>language</strong></td>
+      <td>Langue détectée automatiquement dans la description via la librairie langdetect</td>
+      <td><span class="badge badge-blue">fr</span> <span class="badge badge-blue">en</span> <span class="badge badge-blue">ar</span> <span class="badge badge-blue">es</span> <span class="badge badge-blue">unknown</span></td>
+      <td><span class="badge badge-blue">fact_job_offers</span></td>
+    </tr>
+    <tr>
+      <td><strong>bronze</strong></td>
+      <td>Couche Data Lake contenant les données brutes non transformées</td>
+      <td>JSON partitionné par date</td>
+      <td><span class="badge badge-amber">MinIO bucket</span></td>
+    </tr>
+    <tr>
+      <td><strong>silver</strong></td>
+      <td>Couche intermédiaire après nettoyage HTML, normalisation et enrichissement</td>
+      <td>DataFrame Python propre</td>
+      <td><span class="badge badge-teal">silver.py</span></td>
+    </tr>
+    <tr>
+      <td><strong>gold</strong></td>
+      <td>Couche analytique finale — agrégations et métriques prêtes pour le dashboard</td>
+      <td>Vues SQL PostgreSQL</td>
+      <td><span class="badge badge-green">gold_top_skills</span></td>
+    </tr>
+  </table>
+</div>
+
+<!-- ── LINEAGE ────────────────────────────────────────────── -->
+<div id="lineage" class="section">
+  <h2>Data Lineage — Traçabilité du Pipeline</h2>
+
+  <div class="flow">
+    <span class="src">rekrute.ma</span>  ─────────────────────────────┐<br>
+    <span class="src">linkedin</span>    ──── JSearch API ──────────── ├──<span class="arr">──▶</span> <span class="node">Bronze (MinIO JSON)</span><br>
+    <span class="src">indeed</span>      ─────────────────────────────┤              │<br>
+    <span class="src">wuzzuf</span>      ─────────────────────────────┘              <span class="arr">▼</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="node">Silver (Python+Pandas)</span><br>
+    <span class="src">rekrute.ma</span>  ──── Kafka ─────────────────────────────── │<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="arr">▼</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="node">Gold (Vues SQL)</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="arr">▼</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="node">PostgreSQL Warehouse</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="arr">▼</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="node">Metabase Dashboard</span>
+  </div>
+
+  <div style="margin-top:20px">
+    <table>
+      <tr><th>Étape</th><th>De</th><th>Vers</th><th>Via</th><th>Mode</th></tr>
+      <tr><td>1</td><td>rekrute.ma</td><td>Bronze MinIO</td><td>batch_loader.py</td><td><span class="badge badge-amber">batch</span></td></tr>
+      <tr><td>2</td><td>linkedin / indeed</td><td>Bronze MinIO</td><td>jsearch_scraper.py</td><td><span class="badge badge-amber">batch</span></td></tr>
+      <tr><td>3</td><td>rekrute.ma</td><td>Kafka topic</td><td>kafka_producer.py</td><td><span class="badge badge-purple">streaming</span></td></tr>
+      <tr><td>4</td><td>Bronze</td><td>Silver</td><td>silver.py</td><td><span class="badge badge-teal">transform</span></td></tr>
+      <tr><td>5</td><td>Silver</td><td>Gold</td><td>gold.py</td><td><span class="badge badge-teal">aggregate</span></td></tr>
+      <tr><td>6</td><td>Gold</td><td>PostgreSQL</td><td>loader.py</td><td><span class="badge badge-blue">load</span></td></tr>
+      <tr><td>7</td><td>PostgreSQL</td><td>Metabase</td><td>SQL natif</td><td><span class="badge badge-green">read</span></td></tr>
+      <tr><td>8</td><td>Silver</td><td>Quality checks</td><td>expectations.py</td><td><span class="badge badge-green">validate</span></td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ── RACI ───────────────────────────────────────────────── -->
+<div id="raci" class="section">
+  <h2>Matrice RACI</h2>
+  <p style="color:#546E7A;font-size:13px;margin-bottom:20px">
+    <strong>R</strong> = Responsable (exécute) &nbsp;|&nbsp;
+    <strong>A</strong> = Accountable (décide) &nbsp;|&nbsp;
+    <strong>C</strong> = Consulté &nbsp;|&nbsp;
+    <strong>I</strong> = Informé
+  </p>
+  <table>
+    <tr><th>Tâche</th><th>R — Exécute</th><th>A — Décide</th><th>C — Consulté</th><th>I — Informé</th></tr>
+    <tr>
+      <td><strong>Scraping des offres</strong></td>
+      <td><span class="badge badge-blue">Rim (Data Eng.)</span></td>
+      <td><span class="badge badge-blue">Rim</span></td>
+      <td>Professeur</td>
+      <td>Jury</td>
+    </tr>
+    <tr>
+      <td><strong>Validation qualité</strong></td>
+      <td><span class="badge badge-blue">Rim</span></td>
+      <td><span class="badge badge-blue">Rim</span></td>
+      <td>Data Steward</td>
+      <td>Professeur</td>
+    </tr>
+    <tr>
+      <td><strong>Stockage Data Lake Bronze</strong></td>
+      <td><span class="badge badge-blue">Rim via batch_loader.py</span></td>
+      <td><span class="badge badge-blue">Rim</span></td>
+      <td>Architecte données</td>
+      <td>Jury</td>
+    </tr>
+    <tr>
+      <td><strong>Transformation Silver/Gold</strong></td>
+      <td><span class="badge badge-blue">Rim via silver.py + gold.py</span></td>
+      <td><span class="badge badge-blue">Rim</span></td>
+      <td>Professeur</td>
+      <td>Jury</td>
+    </tr>
+    <tr>
+      <td><strong>Accès Data Warehouse</strong></td>
+      <td><span class="badge badge-blue">Rim</span></td>
+      <td><span class="badge badge-blue">Rim</span></td>
+      <td>Professeur</td>
+      <td>Jury</td>
+    </tr>
+    <tr>
+      <td><strong>Dashboard Metabase</strong></td>
+      <td><span class="badge badge-blue">Rim</span></td>
+      <td><span class="badge badge-blue">Rim</span></td>
+      <td>Utilisateur final</td>
+      <td>Professeur</td>
+    </tr>
+  </table>
+  <div class="card" style="margin-top:20px">
+    <div class="card-title">Note de sécurité</div>
+    <p style="font-size:13px;color:#546E7A">Accès restreint au Data Warehouse : user=<strong>jobuser</strong>, droits SELECT uniquement pour Metabase. Principe du moindre privilège appliqué (RBAC — cours section 04).</p>
+  </div>
+</div>
+
+<!-- ── QUALITE ────────────────────────────────────────────── -->
+<div id="qualite" class="section">
+  <h2>Rapport Qualité des Données</h2>
+  <div style="text-align:center;padding:20px 0">
+    <div class="score">9/9</div>
+    <p style="font-size:18px;color:#2E7D32;margin-top:8px;font-weight:bold">Tests passés — Score 100%</p>
+    <p style="color:#546E7A;font-size:13px;margin-top:4px">Toutes les données sont valides ✅</p>
+  </div>
+  <table>
+    <tr><th>Dimension</th><th>Test</th><th>Résultat</th><th>Valeur</th></tr>
+    <tr><td rowspan="3"><strong>Complétude</strong></td><td>Titres manquants</td><td class="ok">✅ PASS</td><td>0 / 30</td></tr>
+    <tr><td>URLs manquantes</td><td class="ok">✅ PASS</td><td>0 / 30</td></tr>
+    <tr><td>Dates manquantes</td><td class="ok">✅ PASS</td><td>0 / 30</td></tr>
+    <tr><td rowspan="3"><strong>Validité</strong></td><td>Titres trop courts (&lt;3 chars)</td><td class="ok">✅ PASS</td><td>0 / 30</td></tr>
+    <tr><td>URLs invalides (&lt;5 chars)</td><td class="ok">✅ PASS</td><td>0 / 30</td></tr>
+    <tr><td>Salaires négatifs</td><td class="ok">✅ PASS</td><td>0 / 30</td></tr>
+    <tr><td rowspan="3"><strong>Cohérence</strong></td><td>Doublons détectés</td><td class="ok">✅ PASS</td><td>0 / 30</td></tr>
+    <tr><td>Langues invalides</td><td class="ok">✅ PASS</td><td>0 / 30</td></tr>
+    <tr><td>Sources invalides</td><td class="ok">✅ PASS</td><td>0 / 30</td></tr>
+  </table>
+  <div class="card green" style="margin-top:20px">
+    <div class="card-title">Règle 1-10-100 appliquée (DAMA-DMBOK)</div>
+    <p style="font-size:13px;color:#546E7A">Notre validation se fait <strong>à l'entrée du pipeline</strong> (couche Silver) — coût de prévention = 1 DH. Toute erreur détectée tardivement coûterait 10× à 100× plus cher à corriger.</p>
+  </div>
+</div>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>
